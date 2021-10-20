@@ -57,6 +57,7 @@ const form = () => {
             massageForm.remove();
             document.querySelector(".popup").style.display = "none";
             document.querySelector(".popup_engineer").style.display = "none";
+            document.body.style.overflow = "";
           }, 4000);
         });
     });
