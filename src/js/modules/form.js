@@ -1,0 +1,66 @@
+const form = () => {
+  const form = document.querySelectorAll("form"),
+    inputs = document.querySelectorAll("input"),
+    inputPhone = document.querySelectorAll('[name="user_phone"]');
+
+  inputPhone.forEach((item) => {
+    item.addEventListener("input", () => {
+      item.value = item.value.replace(/\D/g, "");
+    });
+  });
+
+  const loading = {
+    loading: "загрузка",
+    success: "Спасибо! скоро мы с вами свяжемся",
+    faiture: "Что-то пошло не так...",
+  };
+
+  const formPosts = async (url, data) => {
+    document.querySelector(".status").textContent = loading.loading;
+    let res = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    return await res.json();
+  };
+
+  form.forEach((item) => {
+    item.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const massageForm = document.createElement("div");
+      massageForm.classList.add("status");
+      item.appendChild(massageForm);
+
+      const data = new FormData(item);
+      const object = {};
+      data.forEach((element, i) => {
+        object[i] = element;
+      });
+
+      formPosts("https://jsonplaceholder.typicode.com/posts", object)
+        .then((data) => {
+          console.log(data);
+          document.querySelector(".status").textContent = loading.success;
+        })
+        .catch(
+          () =>
+            (document.querySelector(".status").textContent = loading.faiture)
+        )
+        .finally(() => {
+          inputs.forEach((el) => (el.value = ""));
+          setTimeout(() => {
+            massageForm.remove();
+            document.querySelector(".popup").style.display = "none";
+            document.querySelector(".popup_engineer").style.display = "none";
+          }, 4000);
+        });
+    });
+  });
+};
+
+export default form;
