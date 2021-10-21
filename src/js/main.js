@@ -1,10 +1,16 @@
 import "./modules/slider";
 import modal from "./modules/modal";
-import form from "./modules/form";
+import forms from "./modules/form";
 import tabs from "./modules/tabs";
+import changeModalState from "./modules/changeModalState";
 
 window.addEventListener("DOMContentLoaded", () => {
+  let modalState = {};
+
+  changeModalState(modalState);
+
   modal();
+
   tabs(".glazing_slider", ".glazing_block", ".glazing_content", "active");
   tabs(
     ".decoration_slider",
@@ -12,5 +18,13 @@ window.addEventListener("DOMContentLoaded", () => {
     ".decoration_content > div > div",
     "after_click"
   );
-  form();
+  tabs(
+    ".balcon_icons",
+    ".balcon_icons_img",
+    ".big_img > img",
+    "do_image_more",
+    "inline-block"
+  );
+
+  forms(modalState);
 });

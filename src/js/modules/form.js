@@ -1,13 +1,10 @@
-const form = () => {
-  const form = document.querySelectorAll("form"),
-    inputs = document.querySelectorAll("input"),
-    inputPhone = document.querySelectorAll('[name="user_phone"]');
+import checkNumInputs from "./checkNumInputs";
 
-  inputPhone.forEach((item) => {
-    item.addEventListener("input", () => {
-      item.value = item.value.replace(/\D/g, "");
-    });
-  });
+const forms = (state) => {
+  const form = document.querySelectorAll("form"),
+    inputs = document.querySelectorAll("input");
+
+  checkNumInputs('input[name="user_phone"]');
 
   const loading = {
     loading: "загрузка",
@@ -37,6 +34,12 @@ const form = () => {
       item.appendChild(massageForm);
 
       const data = new FormData(item);
+      console.log(data);
+      if (item.getAttribute("data-calc") === "end") {
+        for (let key in state) {
+          data.append(key, state[key]);
+        }
+      }
       const object = {};
       data.forEach((element, i) => {
         object[i] = element;
@@ -55,13 +58,13 @@ const form = () => {
           inputs.forEach((el) => (el.value = ""));
           setTimeout(() => {
             massageForm.remove();
-            document.querySelector(".popup").style.display = "none";
-            document.querySelector(".popup_engineer").style.display = "none";
-            document.body.style.overflow = "";
+            // document.querySelector(".popup").style.display = "none";
+            // document.querySelector(".popup_engineer").style.display = "none";
+            // document.body.style.overflow = "";
           }, 4000);
         });
     });
   });
 };
 
-export default form;
+export default forms;
