@@ -1,5 +1,4 @@
 const modal = (modalState) => {
-  console.log("modal");
   function bindModal(
     triggerSelector,
     modalSelector,
@@ -14,7 +13,7 @@ const modal = (modalState) => {
     trigger.forEach((elem) => {
       elem.addEventListener("click", (e) => {
         e.target ? e.preventDefault() : null;
-        console.log(modalState);
+        // console.log(modalState);
         if (closeClickOverlay) {
           window.forEach((item) => {
             item.style.display = "none";

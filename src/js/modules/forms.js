@@ -38,7 +38,6 @@ const forms = (state, del) => {
       const data = new FormData(item);
 
       if (item.getAttribute("data-calc") === "end") {
-        console.log(state);
         for (let key in state) {
           data.append(key, state[key]);
         }
@@ -50,7 +49,6 @@ const forms = (state, del) => {
 
       formPosts("https://jsonplaceholder.typicode.com/posts", object)
         .then((data) => {
-          console.log(data);
           document.querySelector(".status").textContent = loading.success;
         })
         .catch(

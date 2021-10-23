@@ -8,9 +8,21 @@ import timer from "./modules/timer";
 window.addEventListener("DOMContentLoaded", () => {
   let modalState = {};
   let deadline = "2021-10-25";
+  const windowType = document.querySelectorAll("#view_type");
+  const windowProfile = document.querySelectorAll(".checkbox");
 
   function deleteModalState() {
-    modalState = {};
+    windowType.forEach((el) => {
+      el.checked = false;
+    });
+    windowProfile.forEach((el) => {
+      el.checked = false;
+    });
+    delete modalState.form;
+    delete modalState.width;
+    delete modalState.height;
+    delete modalState.type;
+    delete modalState.profile;
   }
 
   changeModalState(modalState);
@@ -35,7 +47,6 @@ window.addEventListener("DOMContentLoaded", () => {
   function del() {
     deleteModalState();
     forms(modalState, del);
-    console.log(modalState);
   }
   forms(modalState, del);
   timer(".container1", deadline);

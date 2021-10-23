@@ -17802,12 +17802,15 @@ module.exports = g;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _modules_slider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/slider */ "./src/js/modules/slider.js");
-/* harmony import */ var _modules_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/modal */ "./src/js/modules/modal.js");
-/* harmony import */ var _modules_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/forms */ "./src/js/modules/forms.js");
-/* harmony import */ var _modules_tabs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/tabs */ "./src/js/modules/tabs.js");
-/* harmony import */ var _modules_changeModalState__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/changeModalState */ "./src/js/modules/changeModalState.js");
-/* harmony import */ var _modules_timer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/timer */ "./src/js/modules/timer.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _modules_slider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/slider */ "./src/js/modules/slider.js");
+/* harmony import */ var _modules_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/modal */ "./src/js/modules/modal.js");
+/* harmony import */ var _modules_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/forms */ "./src/js/modules/forms.js");
+/* harmony import */ var _modules_tabs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/tabs */ "./src/js/modules/tabs.js");
+/* harmony import */ var _modules_changeModalState__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/changeModalState */ "./src/js/modules/changeModalState.js");
+/* harmony import */ var _modules_timer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/timer */ "./src/js/modules/timer.js");
+
 
 
 
@@ -17817,25 +17820,36 @@ __webpack_require__.r(__webpack_exports__);
 window.addEventListener("DOMContentLoaded", function () {
   var modalState = {};
   var deadline = "2021-10-25";
+  var windowType = document.querySelectorAll("#view_type");
+  var windowProfile = document.querySelectorAll(".checkbox");
 
   function deleteModalState() {
-    modalState = {};
+    windowType.forEach(function (el) {
+      el.checked = false;
+    });
+    windowProfile.forEach(function (el) {
+      el.checked = false;
+    });
+    delete modalState.form;
+    delete modalState.width;
+    delete modalState.height;
+    delete modalState.type;
+    delete modalState.profile;
   }
 
-  Object(_modules_changeModalState__WEBPACK_IMPORTED_MODULE_4__["default"])(modalState);
-  Object(_modules_modal__WEBPACK_IMPORTED_MODULE_1__["default"])(modalState);
-  Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_3__["default"])(".glazing_slider", ".glazing_block", ".glazing_content", "active");
-  Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_3__["default"])(".decoration_slider", ".no_click", ".decoration_content > div > div", "after_click");
-  Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_3__["default"])(".balcon_icons", ".balcon_icons_img", ".big_img > img", "do_image_more", "inline-block");
+  Object(_modules_changeModalState__WEBPACK_IMPORTED_MODULE_5__["default"])(modalState);
+  Object(_modules_modal__WEBPACK_IMPORTED_MODULE_2__["default"])(modalState);
+  Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_4__["default"])(".glazing_slider", ".glazing_block", ".glazing_content", "active");
+  Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_4__["default"])(".decoration_slider", ".no_click", ".decoration_content > div > div", "after_click");
+  Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_4__["default"])(".balcon_icons", ".balcon_icons_img", ".big_img > img", "do_image_more", "inline-block");
 
   function del() {
     deleteModalState();
-    Object(_modules_forms__WEBPACK_IMPORTED_MODULE_2__["default"])(modalState, del);
-    console.log(modalState);
+    Object(_modules_forms__WEBPACK_IMPORTED_MODULE_3__["default"])(modalState, del);
   }
 
-  Object(_modules_forms__WEBPACK_IMPORTED_MODULE_2__["default"])(modalState, del);
-  Object(_modules_timer__WEBPACK_IMPORTED_MODULE_5__["default"])(".container1", deadline);
+  Object(_modules_forms__WEBPACK_IMPORTED_MODULE_3__["default"])(modalState, del);
+  Object(_modules_timer__WEBPACK_IMPORTED_MODULE_6__["default"])(".container1", deadline);
 });
 
 /***/ }),
@@ -18015,8 +18029,6 @@ var forms = function forms(state, del) {
       var data = new FormData(item);
 
       if (item.getAttribute("data-calc") === "end") {
-        console.log(state);
-
         for (var key in state) {
           data.append(key, state[key]);
         }
@@ -18027,7 +18039,6 @@ var forms = function forms(state, del) {
         object[i] = element;
       });
       formPosts("https://jsonplaceholder.typicode.com/posts", object).then(function (data) {
-        console.log(data);
         document.querySelector(".status").textContent = loading.success;
       }).catch(function () {
         return document.querySelector(".status").textContent = loading.faiture;
@@ -18066,8 +18077,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var modal = function modal(modalState) {
-  console.log("modal");
-
   function bindModal(triggerSelector, modalSelector, closeSelector) {
     var closeClickOverlay = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
     var trigger = document.querySelectorAll(triggerSelector);
@@ -18076,8 +18085,7 @@ var modal = function modal(modalState) {
     var window = document.querySelectorAll("[data-modal]");
     trigger.forEach(function (elem) {
       elem.addEventListener("click", function (e) {
-        e.target ? e.preventDefault() : null;
-        console.log(modalState);
+        e.target ? e.preventDefault() : null; // console.log(modalState);
 
         if (closeClickOverlay) {
           window.forEach(function (item) {
