@@ -1,15 +1,21 @@
 import "./modules/slider";
 import modal from "./modules/modal";
-import forms from "./modules/form";
+import forms from "./modules/forms";
 import tabs from "./modules/tabs";
 import changeModalState from "./modules/changeModalState";
+import timer from "./modules/timer";
 
 window.addEventListener("DOMContentLoaded", () => {
   let modalState = {};
+  let deadline = "2021-10-25";
+
+  function deleteModalState() {
+    modalState = {};
+  }
 
   changeModalState(modalState);
 
-  modal();
+  modal(modalState);
 
   tabs(".glazing_slider", ".glazing_block", ".glazing_content", "active");
   tabs(
@@ -26,5 +32,11 @@ window.addEventListener("DOMContentLoaded", () => {
     "inline-block"
   );
 
-  forms(modalState);
+  function del() {
+    deleteModalState();
+    forms(modalState, del);
+    console.log(modalState);
+  }
+  forms(modalState, del);
+  timer(".container1", deadline);
 });

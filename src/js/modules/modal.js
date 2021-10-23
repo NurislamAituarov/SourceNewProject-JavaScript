@@ -1,4 +1,5 @@
-const modal = () => {
+const modal = (modalState) => {
+  console.log("modal");
   function bindModal(
     triggerSelector,
     modalSelector,
@@ -13,12 +14,22 @@ const modal = () => {
     trigger.forEach((elem) => {
       elem.addEventListener("click", (e) => {
         e.target ? e.preventDefault() : null;
-
-        window.forEach((item) => {
-          item.style.display = "none";
-        });
-        modal.style.display = "block";
-        document.body.style.overflow = "hidden";
+        console.log(modalState);
+        if (closeClickOverlay) {
+          window.forEach((item) => {
+            item.style.display = "none";
+          });
+          modal.style.display = "block";
+          document.body.style.overflow = "hidden";
+        } else {
+          if (modalState.height && modalState.width) {
+            window.forEach((item) => {
+              item.style.display = "none";
+            });
+            modal.style.display = "block";
+            document.body.style.overflow = "hidden";
+          }
+        }
       });
     });
 
@@ -39,9 +50,16 @@ const modal = () => {
         document.body.style.overflow = "";
       }
     });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.code === "KeyP" || e.code === "Escape") {
+        modal.style.display = "none";
+        document.body.style.overflow = "";
+      }
+    });
   }
 
-  function shoeModalTimer(selector, ms) {
+  function showModalTimer(selector, ms) {
     const modal = document.querySelector(selector);
     setTimeout(() => {
       modal.style.display = "block";
@@ -68,7 +86,7 @@ const modal = () => {
     ".popup_calc_end_close",
     false
   );
-  shoeModalTimer(".popup", 10000);
+  showModalTimer(".popup", 10000);
 };
 
 export default modal;

@@ -1,6 +1,8 @@
 import checkNumInputs from "./checkNumInputs";
 
-const forms = (state) => {
+const forms = (state, del) => {
+  // console.log("form", state);
+
   const form = document.querySelectorAll("form"),
     inputs = document.querySelectorAll("input");
 
@@ -34,8 +36,9 @@ const forms = (state) => {
       item.appendChild(massageForm);
 
       const data = new FormData(item);
-      console.log(data);
+
       if (item.getAttribute("data-calc") === "end") {
+        console.log(state);
         for (let key in state) {
           data.append(key, state[key]);
         }
@@ -58,9 +61,12 @@ const forms = (state) => {
           inputs.forEach((el) => (el.value = ""));
           setTimeout(() => {
             massageForm.remove();
-            // document.querySelector(".popup").style.display = "none";
-            // document.querySelector(".popup_engineer").style.display = "none";
-            // document.body.style.overflow = "";
+            document.querySelector(".popup").style.display = "none";
+            document.querySelector(".popup_engineer").style.display = "none";
+            document.querySelector(".popup_calc_end").style.display = "none";
+            document.body.style.overflow = "";
+
+            del();
           }, 4000);
         });
     });

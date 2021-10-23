@@ -9,6 +9,7 @@ const changeModalState = (state) => {
 
   checkNumInputs("#width");
   checkNumInputs("#height");
+
   function bindActionToElements(event, elem, prop) {
     elem.forEach((item, i) => {
       item.addEventListener(event, () => {
