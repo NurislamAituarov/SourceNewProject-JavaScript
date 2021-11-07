@@ -1,7 +1,7 @@
 import checkNumInputs from "./checkNumInputs";
 
 const forms = (state, del) => {
-  // console.log("form", state);
+  console.log("form");
 
   const form = document.querySelectorAll("form"),
     inputs = document.querySelectorAll("input");
@@ -15,6 +15,7 @@ const forms = (state, del) => {
   };
 
   const formPosts = async (url, data) => {
+    console.log("post");
     document.querySelector(".status").textContent = loading.loading;
     let res = await fetch(url, {
       method: "POST",
@@ -50,6 +51,7 @@ const forms = (state, del) => {
       formPosts("https://jsonplaceholder.typicode.com/posts", object)
         .then((data) => {
           document.querySelector(".status").textContent = loading.success;
+          console.log(data);
         })
         .catch(
           () =>

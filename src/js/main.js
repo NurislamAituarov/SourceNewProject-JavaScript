@@ -4,6 +4,7 @@ import forms from "./modules/forms";
 import tabs from "./modules/tabs";
 import changeModalState from "./modules/changeModalState";
 import timer from "./modules/timer";
+import img from "./modules/images";
 
 window.addEventListener("DOMContentLoaded", () => {
   let modalState = {};
@@ -46,8 +47,10 @@ window.addEventListener("DOMContentLoaded", () => {
 
   function del() {
     deleteModalState();
-    forms(modalState, del);
+    // forms(modalState, del);
   }
   forms(modalState, del);
   timer(".container1", deadline);
+
+  img();
 });

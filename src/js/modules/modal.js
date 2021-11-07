@@ -13,7 +13,7 @@ const modal = (modalState) => {
     trigger.forEach((elem) => {
       elem.addEventListener("click", (e) => {
         e.target ? e.preventDefault() : null;
-        // console.log(modalState);
+
         if (closeClickOverlay) {
           window.forEach((item) => {
             item.style.display = "none";
@@ -61,6 +61,7 @@ const modal = (modalState) => {
   function showModalTimer(selector, ms) {
     const modal = document.querySelector(selector);
     setTimeout(() => {
+      console.log("modalState");
       modal.style.display = "block";
       document.body.style.overflow = "hidden";
     }, ms);
